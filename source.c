@@ -41,6 +41,15 @@ Student* createStudent(){
     return newStudent;
 }
 
+void updateAverageGrade(Course* course){
+    double totalGrades = 0;
+    for (int i = 0; i < course->totalStudents ; i++)
+        totalGrades += (course->studentArray[i].grade);
+
+        course->averageGrade = totalGrades / course->totalStudents;
+
+}
+
 // Step 5 : Creating a Course
 
 Course* createCourse(){
@@ -57,6 +66,7 @@ Course* createCourse(){
         newCourse->studentArray[i] = *newStudent;
         free(newStudent);   // Free the temp student memory allocated by "createStudent" function
     }
+    updateAverageGrade(newCourse);
     return newCourse;
 }
 
@@ -74,7 +84,8 @@ School* createSchool(){
         printf("Enter details for student #%d\n", i+1);
         Course* newCourse = createCourse();
         newSchool->courseArray[i] = *newCourse;
-        free(newCourse);   
+        free(newCourse);  
+
     }
     return newSchool;
 }
@@ -148,3 +159,43 @@ void printCoursesWithPassAvgGrade(School* school, double cutOffGrade){
             printCourseDetails(&(school->courseArray[i]));
     }
 }
+
+// Step 13 : Printing All courses with Fail Average Grade
+
+void printCoursesWithFailAvgGrade(School* school, double cutOffGrade){
+    printf ("Courses with fail average grade : \n");
+    for (int i =0 ; i < school->totalCourses  ; i++){
+        if(school->courseArray[i].averageGrade < cutOffGrade)
+            printCourseDetails(&(school->courseArray[i]));
+    }
+}
+
+// Step 14 : Printing Average Grade Between All courses 
+
+void printAverageGradeAllCourses(School* school){
+    double totalGrade = 0;
+    for (int i=0 ;i < school->totalCourses ; i++)
+        totalGrade += school->courseArray[i].averageGrade;
+
+        double average = totalGrade / school->totalCourses;
+        printf("Average Grade between all courses in school %s is %.2f\n",school->name,average);
+
+}
+
+// Step 15 : Printing the course with the Highest Average Grade
+
+void printCourseWithHighestAverage(School* school){
+    double highestAvg = 0;
+    Course* highestAvgCourse = NULL;
+
+    for (int i=0 ;i < school->totalCourses ; i++){
+        if(school->courseArray[i].averageGrade > highestAvg){
+            highestAvg = school->courseArray[i].averageGrade;
+            highestAvgCourse = &(school->courseArray[i]);
+        }
+
+        printf("Course with the highest average course :\n");
+        printCourseDetails(highestAvgCourse);
+    }
+}
+
