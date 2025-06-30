@@ -43,10 +43,11 @@ Student* createStudent(){
 
 void updateAverageGrade(Course* course){
     double totalGrades = 0;
-    for (int i = 0; i < course->totalStudents ; i++)
+    for(int i = 0; i < course->totalStudents ; i++){
         totalGrades += (course->studentArray[i].grade);
+    }
 
-        course->averageGrade = totalGrades / course->totalStudents;
+ course->averageGrade = totalGrades / course->totalStudents;
 
 }
 
@@ -94,8 +95,8 @@ School* createSchool(){
 
 void printStudentDetails(Student* student){
     printf("Course name : %s\n", student->name);
-    printf("Student ID :c%u\n",student->id);
-    printf("Student Grade : %u\n",student->grade)
+    printf("Student ID : %u\n",student->id);
+    printf("Student Grade : %u\n",student->grade);
 }
 
 // Step 8 : Printing course Details
@@ -120,7 +121,7 @@ void printStudentCourses(School* school, int studentID){
     for(int i=0 ; i < school->totalCourses ;i++){
 
         for(int j=0 ; j < school->courseArray[i].totalStudents ;j++ ){
-            if (school->courseArray[i].studentArray[j.id]==studentID){
+            if (school->courseArray[i].studentArray[j].id==studentID){
                 printf(" - %s\n",school->courseArray[i].name);
                 break;  // If student was found no need to keep tracking this course anymore
             }
@@ -136,7 +137,7 @@ void printStudentWhoFailedCourse(Course* course, double cutOffGrade){
     printf ("Students who failed in %s : \n", course->name);
     for (int i =0 ; i < course->totalStudents ; i++){
         if(course->studentArray[i].grade < cutOffGrade)
-            printCourseDetails(&(course->studentArray[i]));
+            printStudentDetails(&(course->studentArray[i]));
     }
 }
 
@@ -146,7 +147,7 @@ void printStudentWhoPasses(Course* course, double cutOffGrade){
     printf ("Students who passed in %s : \n", course->name);
     for (int i =0 ; i < course->totalStudents ; i++){
         if(course->studentArray[i].grade >= cutOffGrade)
-            printCourseDetails(&(course->studentArray[i]));
+            printStudentDetails(&(course->studentArray[i]));
     }
 }
 
@@ -193,9 +194,14 @@ void printCourseWithHighestAverage(School* school){
             highestAvg = school->courseArray[i].averageGrade;
             highestAvgCourse = &(school->courseArray[i]);
         }
-
+    }
         printf("Course with the highest average course :\n");
         printCourseDetails(highestAvgCourse);
-    }
 }
 
+int main(){
+
+    // Create new school
+
+    School* mySchool = createSchool();
+}
