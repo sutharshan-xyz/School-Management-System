@@ -199,9 +199,27 @@ void printCourseWithHighestAverage(School* school){
         printCourseDetails(highestAvgCourse);
 }
 
+void printSchoolDetails(School* school){
+    for(int i=0; i < school->totalCourses ; i++){
+    printCourseDetails(&(school->courseArray[i]));
+    }
+}
+
 int main(){
 
     // Create new school
 
     School* mySchool = createSchool();
+
+    // Print details about the school
+    printSchoolDetails(mySchool);
+
+    printStudentCourses(mySchool,123);
+
+    printStudentWhoFailedCourse(&(mySchool->courseArray[0]),60.0);
+
+    printStudentWhoPasses(&(mySchool->courseArray[0]),60.0);
+
+
+
 }
